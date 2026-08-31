@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace POO_C.classes 
-{
-    public class Cliente
+namespace sistemaPagamento{
+   public class Cliente
     {
-        public string Nome { get; set; }
-        private decimal CPF { get; }
-        
-        public Cliente(string nome, decimal cpf)
+        public string Nome { get; private set; }
+        public string Cpf { get; }
+
+        public Cliente(string nome, string cpf)
         {
             Nome = nome;
-            CPF = cpf;
+            Cpf = cpf; // definido apenas no construtor, nunca mais alterado
         }
     }
 }

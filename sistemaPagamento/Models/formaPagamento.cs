@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace POO_C.classes
+namespace sistemaPagamento
 {
-    public class FormaPagamento
+    public abstract class FormaPagamento
     {
-        //alteração
+        public abstract string Nome { get; }
+
+        // Cada subclasse decide sua propria regra de calculo
+        public abstract decimal CalcularValorFinal(decimal valor);
     }
 }

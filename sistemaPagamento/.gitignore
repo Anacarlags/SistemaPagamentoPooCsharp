@@ -1,0 +1,24 @@
+## Core dotnet artifacts
+bin/
+obj/
+
+## Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Crash dumps
+*.dmp
+*.mdmp
+
+## Operating System Files
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+Ehthumbs.db
+Desktop.ini

@@ -2,34 +2,45 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace POO_C.classes
+namespace sistemaPagamento
 {
+   public enum SituacaoVenda
+    {
+        Pendente,
+        Pago
+    }
+
     public class Venda
     {
-        public int Numero { get; set; }
-        public Cliente Cliente {get;} 
-        public decimal ValorCompra {get; set;}
-        public string Situacao {get; set;}
+        public int Numero { get; }
+        public Cliente Cliente { get; }
+        public decimal ValorCompra { get; private set; }
+        public SituacaoVenda Situacao { get; private set; }
+
+        public FormaPagamento? FormaPagamentoUtilizada { get; private set; }
+        public decimal? ValorFinal { get; private set; }
 
         public Venda(int numero, Cliente cliente, decimal valorCompra)
         {
+            if (valorCompra <= 0)
+                throw new ArgumentException("O valor da venda deve ser maior que zero.");
+
             Numero = numero;
-            Cliente =cliente;
+            Cliente = cliente;
             ValorCompra = valorCompra;
-            Situacao = "pendente";
+            Situacao = SituacaoVenda.Pendente;
         }
 
-        //metodo para pagamento
-        public void RealizarPagamento()
+        // Único ponto de entrada para alterar a situação/valor final da venda
+        public void Pagar(FormaPagamento formaPagamento)
         {
-            if(Situacao == "pago")
-            {
-                Console.WriteLine("Aviso: Esta venda já foi paga anteriormente.");
-                return;
-            }
+            if (Situacao == SituacaoVenda.Pago)
+                throw new InvalidOperationException("Esta venda já foi paga.");
 
-            //aqui vai ser implementado ainda outras coisas
-            Situacao = "pago";
+            // Polimorfismo: não importa qual subclasse é, o cálculo é chamado da mesma forma
+            ValorFinal = formaPagamento.CalcularValorFinal(ValorCompra);
+            FormaPagamentoUtilizada = formaPagamento;
+            Situacao = SituacaoVenda.Pago;
         }
     }
-} 
+}
